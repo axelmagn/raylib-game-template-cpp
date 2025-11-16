@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24...3.30)
-project(raylib-game-template)
+project(raylib-game-template LANGUAGES C CXX)
 
 include(FetchContent)
 
@@ -7,7 +7,7 @@ include(FetchContent)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Dependencies
-set(RAYLIB_VERSION 5.0)
+set(RAYLIB_VERSION 5.5)
 
 FetchContent_Declare(
     raylib
@@ -21,6 +21,30 @@ FetchContent_MakeAvailable(raylib)
 # Our Project
 add_executable(${PROJECT_NAME})
 add_subdirectory(src)
+
+# C++ standard
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON
+    CXX_EXTENSIONS OFF
+)
+
+# Disable C++20 module dependency scanning (not needed, causes issues with emscripten)
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    CXX_SCAN_FOR_MODULES OFF
+)
+
+# Compiler warnings for best practices
+if(MSVC)
+    target_compile_options(${PROJECT_NAME} PRIVATE /W4 /WX)
+else()
+    target_compile_options(${PROJECT_NAME} PRIVATE
+        -Wall
+        -Wextra
+        -Wpedantic
+        -Werror
+    )
+endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${PROJECT_NAME})

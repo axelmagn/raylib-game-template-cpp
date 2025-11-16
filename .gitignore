@@ -65,7 +65,8 @@ dkms.conf
 compile_commands.json
 
 # Build folder
-[Bb]uild
+/[Bb]uild
+/[Bb]uild-web
 
 # Android files
 *apk*
@@ -78,3 +79,6 @@ android.*
 *.js
 !src/minshell.html
 !src/shell.html
+
+/.claude
+/CLAUDE.md

@@ -1,4 +1,5 @@
-file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS *.c)
-file(GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS *.h)
-
-target_sources(${PROJECT_NAME} PRIVATE ${SOURCE_FILES} ${HEADER_FILES})
+# Unity build configuration - only compile raylib_game.cpp which includes all other sources
+target_sources(${PROJECT_NAME} PRIVATE
+    raylib_game.cpp
+    screens.h
+)

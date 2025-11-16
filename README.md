@@ -4,7 +4,7 @@ _DISCLAIMER:_
 
 Welcome to **raylib game template**!
 
-This template provides a base structure to start developing a small raylib game in plain C. The repo is also pre-configured with a default `LICENSE` (zlib/libpng) and a `README.md` (this one) to be properly filled by users. Feel free to change the LICENSE as required.
+This template provides a base structure to start developing a small raylib game in C++. The repo is also pre-configured with a default `LICENSE` (zlib/libpng) and a `README.md` (this one) to be properly filled by users. Feel free to change the LICENSE as required.
 
 All the sections defined by `$(Data to Fill)` are expected to be edited and filled properly. It's recommended to delete this disclaimer message after editing this `README.md` file.
 
@@ -41,8 +41,9 @@ Chose one of the follow setup options that fit in you development environment.
 - Type the follow command:
 
 ```sh
-cmake -S . -B build
+cmake -S . -B build -G Ninja
 ```
+
 
 > if you want to configure your project to build with debug symbols, use the flag `-DCMAKE_BUILD_TYPE=Debug`
 
@@ -56,6 +57,23 @@ cmake --build build
 - In order for resources to load properly, cd to `src` and run the executable (`../build/${PROJECT_NAME}/${PROJECT_NAME}`) from there.
 
 - cmake will automatically download a current release of raylib but if you want to use your local version you can pass `-DFETCHCONTENT_SOURCE_DIR_RAYLIB=<dir_with_raylib>` 
+
+## Building for Web on Windows
+
+```
+cmake -S . -B build-web -G Ninja \
+    -DPLATFORM=Web \
+    "-DCMAKE_TOOLCHAIN_FILE=<fullpath_to_emsdk>/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"
+```
+
+If your have installed raylib to the default location on windows, the emsdk path will be `C:/raylib/emsdk/`, making the command:
+
+```
+cmake -S . -B build-web -G Ninja -DPLATFORM=Web -DCMAKE_TOOLCHAIN_FILE=C:/raylib/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake
+```
+
+- The project may then be built with `cmake --build build` as per usual.
+
 
 ## $(Game Title)
 
